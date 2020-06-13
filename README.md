@@ -14,6 +14,16 @@ ListView’s builder factory constructor allows you to build a list view lazily,
 
     Note: Prefixing an identifier with an underscore enforces privacy in the Dart language.
 
+Tip: In Flutter's reactive style framework, calling setState() triggers a call to the build() method for the State object, resulting in an update to the UI.
+
+### Routing
+
+In Flutter, the Navigator manages a stack containing the app's routes. Pushing a route onto the Navigator's stack, updates the display to that route. Popping a route from the Navigator's stack, returns the display to the previous route.
+
+Tip: Some widget properties take a single widget (child), and other properties, such as action, take an array of widgets (children), as indicated by the square brackets ([]).
+
+The divideTiles() method of ListTile adds horizontal spacing between each ListTile. The divided variable holds the final rows, converted to a list by the convenience function, toList().
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
