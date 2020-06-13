@@ -1,0 +1,46 @@
+ConstrainedBox(
+                        constraints: new BoxConstraints(
+                          minHeight: 100.0,
+                          minWidth: 100.0,
+                        ),
+                        child: new DecoratedBox(
+                          child: Center(
+                            child: Text('Some text'),
+                          ),
+                          decoration: new BoxDecoration(
+                              color: Colors.red,
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(4)),
+                        ),
+                      ),
+                      ConstrainedBox(
+                        constraints: new BoxConstraints(
+                          minHeight: 100.0,
+                          minWidth: 100.0,
+                        ),
+                        child: new DecoratedBox(
+                          child: Center(
+                            child: Text('Some text'),
+                          ),
+                          decoration: new BoxDecoration(
+                              color: Colors.red,
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(4)),
+                        ),
+                      ),
+                      ConstrainedBox(
+                        constraints: new BoxConstraints(
+                          minHeight: 100.0,
+                          minWidth: 100.0,
+                        ),
+                        child: new DecoratedBox(
+                          child: Center(
+                            child: Text('Some text'),
+                          ),
+                          decoration: new BoxDecoration(
+                              color: Colors.red,
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(4)),
+                        ),
+                      ),
+                    
