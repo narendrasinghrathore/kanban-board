@@ -2,6 +2,11 @@
 
 A new Flutter project.
 
+## References
+The pubspec.yaml file manages the assets and dependencies for a Flutter app.
+
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

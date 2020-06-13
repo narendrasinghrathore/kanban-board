@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:english_words/english_words.dart';
+//For more packages go to https://pub.dev/
 
-void main() {
-  runApp(MyApp());
-}
+//Use arrow notation for one-line functions or methods.
+void main() => runApp(MyApp());
 
+//The app extends StatelessWidget which makes the app itself a widget.
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Material is a visual design language that is standard on mobile and the web.
+    // Flutter offers a rich set of Material widgets.
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -63,20 +67,28 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // A widget’s main job is to provide a build() method
+  // that describes how to display the widget in terms of other, lower level widgets.
   @override
   Widget build(BuildContext context) {
+    final wordPair = WordPair.random();
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    //The Scaffold widget, from the Material library, provides a default app bar,
+    // title, and a body property that holds the widget tree for the home screen
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+      // The body for this example consists of a Center widget containing a Text child widget.
+      // The Center widget aligns its widget subtree to the center of the screen.
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -97,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(wordPair.asPascalCase),
             Text(
               'You have clicked the button this many times:',
             ),
