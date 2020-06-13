@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:mynoteapp/components/home.dart';
 //For more packages go to https://pub.dev/
 
 //Use arrow notation for one-line functions or methods.
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home:Home(title:'Home')
     );
   }
 }
