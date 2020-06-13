@@ -55,7 +55,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  final _suggestions = <WordPair>[];
+  final _biggerFont = const TextStyle(fontSize: 18.0);
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -87,44 +88,77 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+      body: _buildSuggestions(),
       // The body for this example consists of a Center widget containing a Text child widget.
       // The Center widget aligns its widget subtree to the center of the screen.
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(wordPair.asPascalCase),
-            Text(
-              'You have clicked the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
+      // body: Center(
+      // Center is a layout widget. It takes a single child and positions it
+      // in the middle of the parent.
+      // child: Column(
+      // Column is also a layout widget. It takes a list of children and
+      // arranges them vertically. By default, it sizes itself to fit its
+      // children horizontally, and tries to be as tall as its parent.
+      //
+      // Invoke "debug painting" (press "p" in the console, choose the
+      // "Toggle Debug Paint" action from the Flutter Inspector in Android
+      // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+      // to see the wireframe for each widget.
+      //
+      // Column has various properties to control how it sizes itself and
+      // how it positions its children. Here we use mainAxisAlignment to
+      // center the children vertically; the main axis here is the vertical
+      // axis because Columns are vertical (the cross axis would be
+      // horizontal).
+      // mainAxisAlignment: MainAxisAlignment.center,
+      // children: <Widget>[
+      // Text(wordPair.asPascalCase),
+      // Text(
+      // 'You have clicked the button this many times:',
+      // ),
+      // Text(
+      // '$_counter',
+      // style: Theme.of(context).textTheme.headline4,
+      // ),
+      // ],
+      // ),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  /// 1) The itemBuilder callback is called once per suggested word pairing, and places each suggestion into a ListTile row. For even rows, the function adds a ListTile row for the word pairing. For odd rows, the function adds a Divider widget to visually separate the entries. Note that the divider might be difficult to see on smaller devices.
+
+  /// 2) Add a one-pixel-high divider widget before each row in the ListView.
+
+  /// 3) The expression i ~/ 2 divides i by 2 and returns an integer result. For example: 1, 2, 3, 4, 5 becomes 0, 1, 1, 2, 2. This calculates the actual number of word pairings in the ListView, minus the divider widgets.
+
+  /// 4) If you’ve reached the end of the available word pairings, then generate 10 more and add them to the suggestions list.
+
+  Widget _buildSuggestions() {
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: /*1*/ (context, i) {
+          if (i.isOdd) return Divider(); /*2*/
+
+          final index = i ~/ 2; /*3*/
+          if (index >= _suggestions.length) {
+            _suggestions.addAll(generateWordPairs().take(10)); /*4*/
+          }
+          return _buildRow(_suggestions[index]);
+        });
+  }
+
+  /// The _buildSuggestions() function calls _buildRow() once per word pair. This function displays each new pair in a ListTile, which allows you to make the rows more attractive in the next step.
+  Widget _buildRow(WordPair pair) {
+    return ListTile(
+      title: Text(
+        pair.asPascalCase,
+        style: _biggerFont,
+      ),
     );
   }
 }
