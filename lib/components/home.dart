@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
           margin: EdgeInsets.all(10),
           child: Stack(
             children: <Widget>[
-              SvgPicture.asset('assets/images/notes.svg'),
+              // SvgPicture.asset('assets/images/notes.svg'),
               ListView(
                 children: [
                   Row(
@@ -40,46 +40,17 @@ class _HomeState extends State<Home> {
                       Container(
                         child: Center(
                           child: Text(
-                            'Some text.',
-                            style: TextStyle(color: Colors.white),
+                            'Add New Note',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                        width: 100.0,
-                        height: 100.0,
+                        width: 200.0,
+                        height: 300.0,
                         margin: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadiusDirectional.circular(4),
-                          color: Colors.white12,
-                        ),
-                      ),
-                      Container(
-                        child: Center(
-                          child: Text(
-                            'Some text.',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        width: 100.0,
-                        height: 100.0,
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(4),
-                          color: Colors.white12,
-                        ),
-                      ),
-                      Container(
-                        child: Center(
-                          child: Text(
-                            'Some text.',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        width: 100.0,
-                        height: 100.0,
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(4),
-                          color: Colors.white12,
                         ),
                       ),
                     ],
