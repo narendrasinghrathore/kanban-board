@@ -15,6 +15,11 @@ class Home extends StatefulWidget {
     color: Colors.white,
     fontSize: fontSize,
   );
+
+  final firstRow = <Map<String, dynamic>>[
+    {'text': 'Add New Note', 'icon': Icons.note_add},
+    {'text': 'Settings', 'icon': Icons.settings},
+  ];
 }
 
 class _HomeState extends State<Home> {
@@ -44,66 +49,91 @@ class _HomeState extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.volume_up),
-                            tooltip: 'Increase volume by 10',
-                            onPressed: () {
-                              setState(() {
-                                widget._volume += 10;
-                              });
-                            },
-                          ),
-                          Text('Volume : $widget._volume',
-                              style: widget.textStyle)
-                        ],
-                      ),
-                      Container(
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Add New Note',
-                              style: widget.textStyle,
+                      ...widget.firstRow.map((element) {
+                        return Container(
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(1.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  IconButton(
+                                    iconSize: 50.0,
+                                    color: Colors.white,
+                                    icon: Icon(element['icon']),
+                                    tooltip: 'Increase volume by 10',
+                                    highlightColor: Colors.red[300],
+                                    onPressed: () {
+                                      setState(() {
+                                        widget._volume += 10;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    element['text'],
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        width: 100.0,
-                        height: 100.0,
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            style: BorderStyle.solid,
-                            width: 2,
-                            color: widget.borderColors,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Setting',
-                              style: widget.textStyle,
+                          width: 100.0,
+                          height: 100.0,
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              style: BorderStyle.solid,
+                              width: 2,
+                              color: widget.borderColors,
                             ),
                           ),
-                        ),
-                        width: 100.0,
-                        height: 100.0,
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            style: BorderStyle.solid,
-                            width: 2,
-                            color: widget.borderColors,
-                          ),
-                        ),
-                      ),
+                        );
+                      }).toList(),
+                      //   Container(
+                      //     child: Center(
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.all(8.0),
+                      //         child: Text(
+                      //           'Add New Note',
+                      //           style: widget.textStyle,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     width: 100.0,
+                      //     height: 100.0,
+                      //     margin: EdgeInsets.all(10),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //       border: Border.all(
+                      //         style: BorderStyle.solid,
+                      //         width: 2,
+                      //         color: widget.borderColors,
+                      //       ),
+                      //     ),
+                      //   ),
+                      //   Container(
+                      //     child: Center(
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.all(8.0),
+                      //         child: Text(
+                      //           'Setting',
+                      //           style: widget.textStyle,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     width: 100.0,
+                      //     height: 100.0,
+                      //     margin: EdgeInsets.all(10),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(10),
+                      //       border: Border.all(
+                      //         style: BorderStyle.solid,
+                      //         width: 2,
+                      //         color: widget.borderColors,
+                      //       ),
+                      //     ),
+                      //   ),
                     ],
                   ),
                 ],
