@@ -8,23 +8,31 @@ class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
   final String title;
-  final borderColors = Color.fromRGBO(65, 180, 158, 0.5);
+  final borderColors = Colors.black; //Color.fromRGBO(65, 180, 158, 0.5);
   static final fontSize = 16.0;
   double _volume = 0.0;
   final textStyle = TextStyle(
-    color: Colors.white,
+    color: Colors.black,
     fontSize: fontSize,
   );
+  double _height = 100;
 
   final firstRow = <Map<String, dynamic>>[
     {'text': 'Add New Note', 'icon': Icons.note_add},
     {'text': 'Settings', 'icon': Icons.settings},
     {'text': 'Profile', 'icon': Icons.account_circle},
-    {'text': 'List', 'icon': Icons.list}
+    {'text': 'List', 'icon': Icons.list},
   ];
 }
 
 class _HomeState extends State<Home> {
+  updateHeight() {
+    double newHeight = widget._height == 100 ? 200 : 100;
+    setState(() {
+      widget._height = newHeight;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,30 +59,39 @@ class _HomeState extends State<Home> {
                     Wrap(
                       children: <Widget>[
                         ...widget.firstRow.map((element) {
-                          return MyRowItem(widget: widget, element: element);
+                          return MyRowItem(
+                              widget: widget,
+                              element: element,
+                              method: updateHeight);
                         }).toList(),
                       ],
                     ),
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: Container(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Setting',
-                                style: widget.textStyle,
+                          child: AnimatedContainer(
+                            curve: Curves.easeInOut,
+                            duration: Duration(milliseconds: 500),
+                            height: widget._height,
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Details',
+                                  style: widget.textStyle,
+                                ),
                               ),
-                            ),
-                            width: 100.0,
-                            height: 100.0,
-                            margin: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                style: BorderStyle.solid,
-                                width: 2,
-                                color: widget.borderColors,
+                              width: 100.0,
+                              height: 100.0,
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  style: BorderStyle.solid,
+                                  width: 2,
+                                  color: widget.borderColors,
+                                ),
                               ),
                             ),
                           ),
@@ -118,11 +135,12 @@ class _HomeState extends State<Home> {
 }
 
 class MyRowItem extends StatelessWidget {
-  const MyRowItem({Key key, @required this.widget, this.element})
+  const MyRowItem({Key key, @required this.widget, this.element, this.method})
       : super(key: key);
 
   final Home widget;
   final element;
+  final method;
 
   @override
   Widget build(BuildContext context) {
@@ -140,14 +158,12 @@ class MyRowItem extends StatelessWidget {
                 tooltip: 'Increase volume by 10',
                 highlightColor: Colors.red[300],
                 onPressed: () {
-                  // setState(() {
-                  //   widget._volume += 10;
-                  // });
+                  method();
                 },
               ),
               Text(
                 element['text'],
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
               ),
             ],
           ),
@@ -157,6 +173,7 @@ class MyRowItem extends StatelessWidget {
       height: 100.0,
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
+        color: Colors.teal[700],
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           style: BorderStyle.solid,
