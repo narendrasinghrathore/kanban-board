@@ -19,6 +19,8 @@ class Home extends StatefulWidget {
   final firstRow = <Map<String, dynamic>>[
     {'text': 'Add New Note', 'icon': Icons.note_add},
     {'text': 'Settings', 'icon': Icons.settings},
+    {'text': 'Profile', 'icon': Icons.account_circle},
+    {'text': 'List', 'icon': Icons.list}
   ];
 }
 
@@ -46,35 +48,11 @@ class _HomeState extends State<Home> {
                 SvgPicture.asset('assets/images/notes.svg'),
                 ListView(
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
                       children: <Widget>[
                         ...widget.firstRow.map((element) {
                           return MyRowItem(widget: widget, element: element);
                         }).toList(),
-                        Container(
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Add New Note',
-                                style: widget.textStyle,
-                              ),
-                            ),
-                          ),
-                          width: 100.0,
-                          height: 100.0,
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              style: BorderStyle.solid,
-                              width: 2,
-                              color: widget.borderColors,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                     Row(
