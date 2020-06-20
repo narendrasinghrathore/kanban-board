@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
   final String title;
   final borderColors = Colors.black; //Color.fromRGBO(65, 180, 158, 0.5);
   static final fontSize = 16.0;
-  double _volume = 0.0;
+  final double _volume = 0.0;
   final textStyle = TextStyle(
     color: Colors.black,
     fontSize: fontSize,

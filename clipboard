@@ -45,4 +45,4 @@ ConstrainedBox(
                       ),
                     
 
-                    flutter build apk --target-platform android-x64
+flutter build apk --target-platform=android-x64
