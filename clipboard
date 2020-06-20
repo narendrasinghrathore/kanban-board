@@ -44,3 +44,5 @@ ConstrainedBox(
                         ),
                       ),
                     
+
+                    flutter build apk --target-platform android-x64

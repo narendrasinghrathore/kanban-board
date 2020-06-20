@@ -37,43 +37,29 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.black,
         primary: true,
       ),
-      body: Center(
-        child: Container(
-          margin: EdgeInsets.all(10),
-          child: Stack(
-            children: <Widget>[
-              SvgPicture.asset('assets/images/notes.svg'),
-              ListView(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ...widget.firstRow.map((element) {
-                        return Container(
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Stack(
+              children: <Widget>[
+                SvgPicture.asset('assets/images/notes.svg'),
+                ListView(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ...widget.firstRow.map((element) {
+                          return MyRowItem(widget: widget, element: element);
+                        }).toList(),
+                        Container(
                           child: Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  IconButton(
-                                    iconSize: 50.0,
-                                    color: Colors.white,
-                                    icon: Icon(element['icon']),
-                                    tooltip: 'Increase volume by 10',
-                                    highlightColor: Colors.red[300],
-                                    onPressed: () {
-                                      setState(() {
-                                        widget._volume += 10;
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    element['text'],
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Add New Note',
+                                style: widget.textStyle,
                               ),
                             ),
                           ),
@@ -88,58 +74,116 @@ class _HomeState extends State<Home> {
                               color: widget.borderColors,
                             ),
                           ),
-                        );
-                      }).toList(),
-                      //   Container(
-                      //     child: Center(
-                      //       child: Padding(
-                      //         padding: const EdgeInsets.all(8.0),
-                      //         child: Text(
-                      //           'Add New Note',
-                      //           style: widget.textStyle,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     width: 100.0,
-                      //     height: 100.0,
-                      //     margin: EdgeInsets.all(10),
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //       border: Border.all(
-                      //         style: BorderStyle.solid,
-                      //         width: 2,
-                      //         color: widget.borderColors,
-                      //       ),
-                      //     ),
-                      //   ),
-                      //   Container(
-                      //     child: Center(
-                      //       child: Padding(
-                      //         padding: const EdgeInsets.all(8.0),
-                      //         child: Text(
-                      //           'Setting',
-                      //           style: widget.textStyle,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     width: 100.0,
-                      //     height: 100.0,
-                      //     margin: EdgeInsets.all(10),
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(10),
-                      //       border: Border.all(
-                      //         style: BorderStyle.solid,
-                      //         width: 2,
-                      //         color: widget.borderColors,
-                      //       ),
-                      //     ),
-                      //   ),
-                    ],
-                  ),
-                ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Setting',
+                                style: widget.textStyle,
+                              ),
+                            ),
+                            width: 100.0,
+                            height: 100.0,
+                            margin: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                style: BorderStyle.solid,
+                                width: 2,
+                                color: widget.borderColors,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // Container(
+                        //   child: Center(
+                        //     child: Padding(
+                        //       padding: const EdgeInsets.all(8.0),
+                        //       child: Expanded(
+                        //         child: Text(
+                        //           'Setting',
+                        //           style: widget.textStyle,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   width: 100.0,
+                        //   height: 100.0,
+                        //   margin: EdgeInsets.all(10),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(10),
+                        //     border: Border.all(
+                        //       style: BorderStyle.solid,
+                        //       width: 2,
+                        //       color: widget.borderColors,
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MyRowItem extends StatelessWidget {
+  const MyRowItem({Key key, @required this.widget, this.element})
+      : super(key: key);
+
+  final Home widget;
+  final element;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(1.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              IconButton(
+                iconSize: 50.0,
+                color: Colors.white,
+                icon: Icon(element['icon']),
+                tooltip: 'Increase volume by 10',
+                highlightColor: Colors.red[300],
+                onPressed: () {
+                  // setState(() {
+                  //   widget._volume += 10;
+                  // });
+                },
+              ),
+              Text(
+                element['text'],
+                style: TextStyle(color: Colors.white),
               ),
             ],
           ),
+        ),
+      ),
+      width: 100.0,
+      height: 100.0,
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          style: BorderStyle.solid,
+          width: 2,
+          color: widget.borderColors,
         ),
       ),
     );
