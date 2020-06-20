@@ -61,6 +61,7 @@ class _HomeState extends State<Home> {
                 ListView(
                   children: [
                     Wrap(
+                      alignment: WrapAlignment.center,
                       children: <Widget>[
                         ...widget.firstRow.map((element) {
                           return MyRowItem(
@@ -177,17 +178,29 @@ class MyRowItem extends StatelessWidget {
           ),
         ),
       ),
-      width: 100.0,
-      height: 100.0,
+      width: 200.0,
+      height: 140.0,
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.teal[700],
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          style: BorderStyle.solid,
-          width: 2,
-          color: widget.borderColors,
+        gradient: LinearGradient(
+          begin: Alignment.center,
+          end:
+              Alignment(0.8, 0.0), // 10% of the width, so there are ten blinds.
+          colors: [
+            const Color.fromRGBO(142, 158, 171, 1),
+            const Color.fromRGBO(238, 242, 243, 1),
+          ], // whitish to gray
+          tileMode: TileMode.clamp, // repeats the gradient over the canvas
         ),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(blurRadius: 10, color: Colors.black87, spreadRadius: 5)
+        ],
+        // border: Border.all(
+        //   style: BorderStyle.solid,
+        //   width: 2,
+        //   color: widget.borderColors,
+        // ),
       ),
     );
   }

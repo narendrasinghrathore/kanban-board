@@ -45,4 +45,7 @@ ConstrainedBox(
                       ),
                     
 
-flutter build apk --target-platform=android-x64
+flutter build apk --target-platform=android-arm64 --split-debug-info
+
+To generate new icons
+flutter pub run flutter_launcher_icons:main
