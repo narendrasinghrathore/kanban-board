@@ -16,6 +16,8 @@ class Home extends StatefulWidget {
     fontSize: fontSize,
   );
   double _height = 100;
+  double _opacity = 0.5;
+  var _duration = Duration(milliseconds: 500);
 
   final firstRow = <Map<String, dynamic>>[
     {'text': 'Add New Note', 'icon': Icons.note_add},
@@ -28,8 +30,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   updateHeight() {
     double newHeight = widget._height == 100 ? 200 : 100;
+    double newOpacity = widget._opacity == 1 ? 0.5 : 1;
     setState(() {
       widget._height = newHeight;
+      widget._opacity = newOpacity;
     });
   }
 
@@ -70,27 +74,31 @@ class _HomeState extends State<Home> {
                       children: <Widget>[
                         Expanded(
                           child: AnimatedContainer(
-                            curve: Curves.easeInOut,
-                            duration: Duration(milliseconds: 500),
+                            curve: Curves.fastOutSlowIn,
+                            duration: widget._duration,
                             height: widget._height,
-                            child: Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Details',
-                                  style: widget.textStyle,
+                            child: AnimatedOpacity(
+                              opacity: widget._opacity,
+                              duration: widget._duration,
+                              child: Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Details',
+                                    style: widget.textStyle,
+                                  ),
                                 ),
-                              ),
-                              width: 100.0,
-                              height: 100.0,
-                              margin: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  style: BorderStyle.solid,
-                                  width: 2,
-                                  color: widget.borderColors,
+                                width: 100.0,
+                                height: 100.0,
+                                margin: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    style: BorderStyle.solid,
+                                    width: 2,
+                                    color: widget.borderColors,
+                                  ),
                                 ),
                               ),
                             ),
