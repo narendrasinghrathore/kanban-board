@@ -126,12 +126,12 @@ class WeatherList {
 }
 
 class Main {
-  int temp;
-  double feelsLike;
-  int tempMin;
-  int tempMax;
-  int pressure;
-  int humidity;
+  dynamic temp;
+  dynamic feelsLike;
+  dynamic tempMin;
+  dynamic tempMax;
+  dynamic pressure;
+  dynamic humidity;
 
   Main(
       {this.temp,

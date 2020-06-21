@@ -23,8 +23,13 @@ class Home extends StatefulWidget {
   double weatherWidgetOpacity = 1;
   var _duration = Duration(milliseconds: 500);
 
-  double _weatherContainerHeight = 0;
+  double _weatherContainerHeight = 150;
   bool showSpinner = false;
+
+  final weatherWidgetTextStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 25,
+  );
 
   final firstRow = <Map<String, dynamic>>[
     {
@@ -64,7 +69,7 @@ class _HomeState extends State<Home> {
   }
 
   getWeather(String name) {
-    print(name);
+    print("***   " + name + "   ***");
     updateSpinner(true);
     getWeatherData(name)
         .then((value) => {
@@ -110,9 +115,7 @@ class _HomeState extends State<Home> {
               ListView(
                 children: [
                   TextField(
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: widget.weatherWidgetTextStyle,
                     controller: _textFieldController,
                     onSubmitted: (String value) async {
                       getWeather(value);
@@ -120,7 +123,7 @@ class _HomeState extends State<Home> {
                     decoration: InputDecoration(
                       fillColor: Colors.red,
                       border: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: BorderSide(width: 10, color: Colors.white),
                       ),
                     ),
                   ),
@@ -142,7 +145,7 @@ class _HomeState extends State<Home> {
                             height: 100.0,
                             margin: EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.red[400],
+                              color: Colors.lightBlue,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
                                 style: BorderStyle.solid,
@@ -249,6 +252,20 @@ class _HomeState extends State<Home> {
         primary: true,
       ),
       body: bodyContainer,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: null,
+        child: Icon(Icons.search),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.yellow,
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+      ),
     );
   }
 
@@ -265,33 +282,24 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     weatherData.weather[0].main,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                    ),
+                    style: widget.weatherWidgetTextStyle,
                   ),
                   weatherIcon(weatherData.weather[0].icon),
                   Text(
-                    "Temp C: ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                    ),
+                    "${weatherData.main.temp.toString()}",
+                    style: widget.weatherWidgetTextStyle,
                   ),
                   Text(
-                    "${weatherData.main.temp.toString()}",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                    ),
-                  )
+                    "° C",
+                    style: widget.weatherWidgetTextStyle,
+                  ),
                 ],
               )
             : Row(
                 children: [
                   Text(
                     "No data",
-                    style: TextStyle(color: Colors.white),
+                    style: widget.weatherWidgetTextStyle,
                   ),
                 ],
               ))
