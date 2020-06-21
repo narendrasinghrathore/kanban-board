@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
   double weatherWidgetOpacity = 1;
   var _duration = Duration(milliseconds: 500);
 
-  double _weatherContainerHeight = 150;
+  double _weatherContainerHeight = 0;
   bool showSpinner = false;
 
   final firstRow = <Map<String, dynamic>>[
