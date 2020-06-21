@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mynoteapp/models/Album.dart';
+import 'package:mynoteapp/models/Weather.dart';
 import 'package:mynoteapp/services/core.service.dart';
 
 class Home extends StatefulWidget {
@@ -17,10 +18,12 @@ class Home extends StatefulWidget {
     color: Colors.black,
     fontSize: fontSize,
   );
-  double _height = 100;
+  double _height = 150;
   double _opacity = 0.5;
+  double weatherWidgetOpacity = 1;
   var _duration = Duration(milliseconds: 500);
 
+  double _weatherContainerHeight = 150;
   bool showSpinner = false;
 
   final firstRow = <Map<String, dynamic>>[
@@ -48,20 +51,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Future<Album> futureAlbum;
   Album user;
+  Weather weatherData;
+  TextEditingController _textFieldController;
+  String cityName = 'Jaipur';
 
   updateSpinner(bool onOff) {
     setState(() {
       widget.showSpinner = onOff;
+      widget._weatherContainerHeight = onOff == true ? 0 : 150;
     });
+  }
+
+  getWeather(String name) {
+    print(name);
+    updateSpinner(true);
+    getWeatherData(name)
+        .then((value) => {
+              setState(() =>
+                  {weatherData = value, widget._weatherContainerHeight = 150})
+            })
+        .whenComplete(() => {updateSpinner(false)});
   }
 
   getData(int id) {
     updateSpinner(true);
-    print(id);
-    futureAlbum = fetchAlbum(id);
-    futureAlbum
+    fetchAlbum(id)
         .then((value) => {
               setState(() => {user = value})
             })
@@ -71,7 +86,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum(3);
+    _textFieldController = TextEditingController(text: cityName);
   }
 
   updateHeight() {
@@ -94,23 +109,52 @@ class _HomeState extends State<Home> {
               SvgPicture.asset('assets/images/notes.svg'),
               ListView(
                 children: [
-                  Row(
-                    children: [
-                      widget.showSpinner == false
-                          ? (user != null
-                              ? Text(
-                                  user.title,
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              : Text(
-                                  "No data",
-                                  style: TextStyle(color: Colors.white),
-                                ))
-
-                          // By default, show a loading spinner.
-                          : CircularProgressIndicator(),
-                    ],
+                  TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    controller: _textFieldController,
+                    onSubmitted: (String value) async {
+                      getWeather(value);
+                    },
+                    decoration: InputDecoration(
+                      fillColor: Colors.red,
+                      border: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
                   ),
+                  Row(children: <Widget>[
+                    Expanded(
+                      child: AnimatedContainer(
+                        curve: Curves.fastOutSlowIn,
+                        duration: widget._duration,
+                        height: widget._weatherContainerHeight,
+                        child: AnimatedOpacity(
+                          opacity: widget.weatherWidgetOpacity,
+                          duration: widget._duration,
+                          child: Container(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: weatherWidget(),
+                            ),
+                            width: 100.0,
+                            height: 100.0,
+                            margin: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.red[400],
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                style: BorderStyle.solid,
+                                width: 2,
+                                color: widget.borderColors,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]),
                   Wrap(
                     alignment: WrapAlignment.center,
                     children: <Widget>[
@@ -206,6 +250,56 @@ class _HomeState extends State<Home> {
       ),
       body: bodyContainer,
     );
+  }
+
+  Image weatherIcon(icon) {
+    return Image(
+      image: NetworkImage("http://openweathermap.org/img/wn/$icon@2x.png"),
+    );
+  }
+
+  weatherWidget() {
+    return widget.showSpinner == false
+        ? (weatherData != null
+            ? Row(
+                children: [
+                  Text(
+                    weatherData.weather[0].main,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                    ),
+                  ),
+                  weatherIcon(weatherData.weather[0].icon),
+                  Text(
+                    "Temp C: ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                    ),
+                  ),
+                  Text(
+                    "${weatherData.main.temp.toString()}",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                    ),
+                  )
+                ],
+              )
+            : Row(
+                children: [
+                  Text(
+                    "No data",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ))
+
+        // By default, show a loading spinner.
+        : Row(children: [
+            CircularProgressIndicator(),
+          ]);
   }
 }
 
