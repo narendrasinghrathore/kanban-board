@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mynoteapp/components/streamExample.dart';
 import 'package:mynoteapp/models/Album.dart';
 import 'package:mynoteapp/models/Weather.dart';
 import 'package:mynoteapp/services/core.service.dart';
@@ -161,6 +162,7 @@ class _HomeState extends State<Home> {
                   Wrap(
                     alignment: WrapAlignment.center,
                     children: <Widget>[
+                      MyStatefulWidget(),
                       ...widget.firstRow.map((element) {
                         return MyRowItem(
                           widget: widget,
@@ -273,9 +275,9 @@ class _HomeState extends State<Home> {
     return FadeInImage.assetNetwork(
         placeholder: "assets/icons/35.gif",
         image: "http://openweathermap.org/img/wn/$icon@2x.png");
-    return Image(
-      image: NetworkImage("http://openweathermap.org/img/wn/$icon@2x.png"),
-    );
+    // return Image(
+    //   image: NetworkImage("http://openweathermap.org/img/wn/$icon@2x.png"),
+    // );
   }
 
   weatherWidget() {
