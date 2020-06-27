@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:mynoteapp/components/MyPaint.dart';
 
 import 'components/home.dart';
 //For more packages go to https://pub.dev/
@@ -42,8 +43,8 @@ class MyApp extends StatelessWidget {
         '/s': (BuildContext context) => Home(
               title: 'Setting',
             ),
-        '/a': (BuildContext context) => Home(
-              title: 'About',
+        '/p': (BuildContext context) => MyPaint(
+              title: 'My Paint',
             ),
       },
     );

@@ -270,9 +270,9 @@ class _HomeState extends State<Home> {
                 label: Text('Home'),
               ),
               FlatButton.icon(
-                onPressed: () => Navigator.pushNamed(context, '/a'),
+                onPressed: () => Navigator.pushNamed(context, '/p'),
                 icon: Icon(Icons.details),
-                label: Text('About'),
+                label: Text('Paint'),
               ),
               FlatButton.icon(
                 onPressed: () => Navigator.pushNamed(context, '/s'),
