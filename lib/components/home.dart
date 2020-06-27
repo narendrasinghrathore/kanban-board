@@ -262,6 +262,25 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.yellow,
         child: Container(
+          child: Row(
+            children: <Widget>[
+              FlatButton.icon(
+                onPressed: () => Navigator.pushNamed(context, '/h'),
+                icon: Icon(Icons.home),
+                label: Text('Home'),
+              ),
+              FlatButton.icon(
+                onPressed: () => Navigator.pushNamed(context, '/a'),
+                icon: Icon(Icons.details),
+                label: Text('About'),
+              ),
+              FlatButton.icon(
+                onPressed: () => Navigator.pushNamed(context, '/s'),
+                icon: Icon(Icons.settings_applications),
+                label: Text('Setting'),
+              ),
+            ],
+          ),
           height: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
