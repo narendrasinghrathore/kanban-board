@@ -269,7 +269,10 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Image weatherIcon(icon) {
+  Widget weatherIcon(icon) {
+    return FadeInImage.assetNetwork(
+        placeholder: "assets/icons/35.gif",
+        image: "http://openweathermap.org/img/wn/$icon@2x.png");
     return Image(
       image: NetworkImage("http://openweathermap.org/img/wn/$icon@2x.png"),
     );
